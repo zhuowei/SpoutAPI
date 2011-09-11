@@ -22,6 +22,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.getspout.spoutapi.chunkcache.CacheManager;
 import org.getspout.spoutapi.chunkdatamanager.ChunkDataManager;
+import org.getspout.spoutapi.entity.SpoutEntity;
 import org.getspout.spoutapi.inventory.InventoryBuilder;
 import org.getspout.spoutapi.inventory.ItemManager;
 import org.getspout.spoutapi.keyboard.KeyboardManager;
@@ -29,7 +30,7 @@ import org.getspout.spoutapi.packet.PacketManager;
 import org.getspout.spoutapi.player.AppearanceManager;
 import org.getspout.spoutapi.player.BiomeManager;
 import org.getspout.spoutapi.player.FileManager;
-import org.getspout.spoutapi.player.PlayerManager;
+import org.getspout.spoutapi.player.GlobalManager;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.sound.SoundManager;
@@ -44,7 +45,7 @@ public class SpoutManager {
 	private BiomeManager biomeManager = null;
 	private InventoryBuilder inventoryBuilder = null;
 	private PacketManager packetManager = null;
-	private PlayerManager playerManager = null;
+	private GlobalManager globalManager = null;
 	private CacheManager cacheManager = null;
 	private ChunkDataManager chunkDataManager = null;
 	private FileManager fileManager = null;
@@ -200,9 +201,9 @@ public class SpoutManager {
 		}
 	}
 	
-	public void setPlayerManager(PlayerManager manager) {
-		if (playerManager == null) {
-			playerManager = manager;
+	public void setGlobalManager(GlobalManager manager) {
+		if (globalManager == null) {
+			globalManager = manager;
 		}
 	}
 	
@@ -222,7 +223,7 @@ public class SpoutManager {
 	 * @return SpoutPlayer
 	 */
 	public static SpoutPlayer getPlayerFromId(int entityId) {
-		return getInstance().playerManager.getPlayer(entityId);
+		return getInstance().globalManager.getPlayer(entityId);
 	}
 	
 	/**
@@ -231,7 +232,7 @@ public class SpoutManager {
 	 * @return SpoutPlayer
 	 */
 	public static SpoutPlayer getPlayerFromId(UUID id) {
-		return getInstance().playerManager.getPlayer(id);
+		return getInstance().globalManager.getPlayer(id);
 	}
 	
 	/**
@@ -239,8 +240,8 @@ public class SpoutManager {
 	 * @param entityId
 	 * @return Entity
 	 */
-	public static Entity getEntityFromId(int entityId) {
-		return getInstance().playerManager.getEntity(entityId);
+	public static SpoutEntity getEntityFromId(int entityId) {
+		return getInstance().globalManager.getEntity(entityId);
 	}
 	
 	/**
@@ -248,8 +249,17 @@ public class SpoutManager {
 	 * @param id
 	 * @return Entity
 	 */
-	public static Entity getEntityFromId(UUID id) {
-		return getInstance().playerManager.getEntity(id);
+	public static SpoutEntity getEntityFromId(UUID id) {
+		return getInstance().globalManager.getEntity(id);
+	}
+	
+	/**
+	 * Gets a Spoutentity from the given bukkit entity, will never fail
+	 * @param entity
+	 * @return Spoutentity
+	 */
+	public static SpoutEntity getEntity(Entity entity) {
+		return getInstance().globalManager.getEntity(entity);
 	}
 	
 	/**
@@ -258,7 +268,7 @@ public class SpoutManager {
 	 * @return SpoutPlayer
 	 */
 	public static SpoutPlayer getPlayer(Player player) {
-		return getInstance().playerManager.getPlayer(player);
+		return getInstance().globalManager.getPlayer(player);
 	}
 	
 	/**
@@ -266,10 +276,10 @@ public class SpoutManager {
 	 * @return online players
 	 */
 	public static SpoutPlayer[] getOnlinePlayers() {
-		return getInstance().playerManager.getOnlinePlayers();
+		return getInstance().globalManager.getOnlinePlayers();
 	}
 	
-	public static PlayerManager getPlayerManager() {
-		return getInstance().playerManager;
+	public static GlobalManager getGlobalManager() {
+		return getInstance().globalManager;
 	}
 }

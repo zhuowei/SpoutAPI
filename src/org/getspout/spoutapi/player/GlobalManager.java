@@ -20,8 +20,9 @@ import java.util.UUID;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.getspout.spoutapi.entity.SpoutEntity;
 
-public interface PlayerManager {
+public interface GlobalManager {
 	
 	public SpoutPlayer getPlayer(Player player);
 	
@@ -37,8 +38,10 @@ public interface PlayerManager {
 	
 	public void setVersionString(int playerId, String versionString);
 
-	public Entity getEntity(UUID id);
+	public SpoutEntity getEntity(UUID id);
 
-	public Entity getEntity(int entityId);
+	public SpoutEntity getEntity(int entityId);
+
+	public SpoutEntity getEntity(Entity entity);
 
 }

@@ -2,6 +2,6 @@ package org.getspout.spoutapi.entity;
 
 import org.bukkit.entity.Fireball;
 
-public interface SpoutFireball extends Fireball{
+public interface SpoutFireball extends Fireball, SpoutEntity{
 
 }

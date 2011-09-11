@@ -34,7 +34,7 @@ public class PacketFullVersion implements SpoutPacket {
 	
 	@Override
 	public void run(int playerId) {
-		SpoutManager.getPlayerManager().setVersionString(playerId, versionString);
+		SpoutManager.getGlobalManager().setVersionString(playerId, versionString);
 	}
 	
 	@Override
