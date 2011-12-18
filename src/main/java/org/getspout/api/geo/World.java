@@ -1,5 +1,7 @@
 package org.getspout.api.geo;
 
+import java.util.UUID;
+
 import org.getspout.api.event.EventSource;
 import org.getspout.api.geo.cuboid.Block;
 import org.getspout.api.util.thread.DelayedWrite;
@@ -79,6 +81,6 @@ public interface World extends EventSource {
 	 * @return the name of the world
 	 */
 	@SnapshotRead
-	public String getUID();
+	public UUID getUID();
 
 }
