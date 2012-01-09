@@ -32,7 +32,7 @@ import org.jboss.netty.buffer.ChannelBuffers;
 
 public final class BootstrapPingCodec extends MessageCodec<BootstrapPingMessage> {
 	public BootstrapPingCodec() {
-		super(BootstrapPingMessage.class, 0xFE);
+		super(BootstrapPingMessage.class, 0x00);
 	}
 
 	@Override

@@ -35,9 +35,9 @@ public class BootstrapCodecLookupService extends CodecLookupService {
 	public BootstrapCodecLookupService() {
 		
 		try {
+		/* 0x00 */bind(BootstrapPingCodec.class);
 		/* 0x01 */bind(BootstrapIdentificationCodec.class);
 		/* 0x02 */bind(BootstrapHandshakeCodec.class);
-		/* 0xFE */bind(BootstrapPingCodec.class);
 		} catch (Exception ex) {
 			throw new ExceptionInInitializerError(ex);
 		}
