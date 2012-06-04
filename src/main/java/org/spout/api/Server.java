@@ -183,11 +183,4 @@ public interface Server extends Engine {
 	 */
 	public String getIpBanMessage(String address);
 
-	/**
-	 * Creates a new Session
-	 *
-	 * @param channel the associated channel
-	 * @return the session
-	 */
-	public Session newSession(Channel channel);
 }

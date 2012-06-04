@@ -27,7 +27,7 @@
 package org.spout.api.protocol;
 
 import org.jboss.netty.channel.Channels;
-import org.spout.api.Server;
+import org.spout.api.Engine;
 
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
@@ -37,21 +37,21 @@ import org.jboss.netty.channel.ChannelPipelineFactory;
  */
 public final class CommonPipelineFactory implements ChannelPipelineFactory {
 	/**
-	 * The server.
+	 * The engine.
 	 */
-	private final Server server;
+	private final Engine engine;
 
 	/**
 	 * Creates a new Minecraft pipeline factory.
 	 *
-	 * @param server The server.
+	 * @param engine The engine.
 	 */
-	public CommonPipelineFactory(Server server) {
-		this.server = server;
+	public CommonPipelineFactory(Engine engine) {
+		this.engine = engine;
 	}
 
 	public ChannelPipeline getPipeline() throws Exception {
-		CommonHandler handler = new CommonHandler(server);
+		CommonHandler handler = new CommonHandler(engine);
 		CommonEncoder encoder = new CommonEncoder();
 		CommonDecoder decoder = new CommonDecoder(handler, encoder);
 		return Channels.pipeline(decoder, encoder, handler);

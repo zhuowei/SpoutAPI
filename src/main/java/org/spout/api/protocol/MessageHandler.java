@@ -26,6 +26,9 @@
  */
 package org.spout.api.protocol;
 
+import org.spout.api.Client;
+import org.spout.api.Spout;
+
 import org.spout.api.player.Player;
 
 public abstract class MessageHandler<T extends Message> {
@@ -40,7 +43,11 @@ public abstract class MessageHandler<T extends Message> {
 	 * @param message the message that was received
 	 */
 	public void handle(Session session, Player player, T message) {
-		handleServer(session, player, message);
+		if (Spout.getEngine() instanceof Client) {
+			handleClient(session, player, message);
+		} else {
+			handleServer(session, player, message);
+		}
 	}
 
 	/**

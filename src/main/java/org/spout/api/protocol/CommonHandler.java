@@ -28,7 +28,7 @@ package org.spout.api.protocol;
 
 import java.util.logging.Level;
 
-import org.spout.api.Server;
+import org.spout.api.Engine;
 
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
@@ -45,9 +45,9 @@ import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
  */
 public class CommonHandler extends SimpleChannelUpstreamHandler {
 	/**
-	 * The server.
+	 * The engine.
 	 */
-	private final Server server;
+	private final Engine engine;
 
 	/**
 	 * The associated session
@@ -57,35 +57,35 @@ public class CommonHandler extends SimpleChannelUpstreamHandler {
 	/**
 	 * Creates a new network event handler.
 	 *
-	 * @param server The server.
+	 * @param engine The engine.
 	 */
-	public CommonHandler(Server server) {
-		this.server = server;
+	public CommonHandler(Engine engine) {
+		this.engine = engine;
 	}
 
 	@Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
 		Channel c = e.getChannel();
-		server.getChannelGroup().add(c);
+		engine.getChannelGroup().add(c);
 
-		Session session = server.newSession(c);
-		server.getSessionRegistry().add(session);
+		Session session = engine.newSession(c);
+		engine.getSessionRegistry().add(session);
 		ctx.setAttachment(session);
 		this.session = session;
 
-		server.getLogger().info("Channel connected: " + c + ".");
+		engine.getLogger().info("Channel connected: " + c + ".");
 	}
 
 	@Override
 	public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) {
 		Channel c = e.getChannel();
-		server.getChannelGroup().remove(c);
+		engine.getChannelGroup().remove(c);
 
 		Session session = (Session) ctx.getAttachment();
-		server.getSessionRegistry().remove(session);
+		engine.getSessionRegistry().remove(session);
 		session.dispose();
 
-		server.getLogger().info("Channel disconnected: " + c + ".");
+		engine.getLogger().info("Channel disconnected: " + c + ".");
 	}
 
 	@Override
@@ -98,13 +98,13 @@ public class CommonHandler extends SimpleChannelUpstreamHandler {
 	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) {
 		Channel c = e.getChannel();
 		if (c.isOpen()) {
-			server.getChannelGroup().remove(c);
+			engine.getChannelGroup().remove(c);
 
 			Session session = (Session) ctx.getAttachment();
-			server.getSessionRegistry().remove(session);
+			engine.getSessionRegistry().remove(session);
 			session.dispose();
 
-			server.getLogger().log(Level.WARNING, "Exception caught, closing channel: " + c + "...", e.getCause());
+			engine.getLogger().log(Level.WARNING, "Exception caught, closing channel: " + c + "...", e.getCause());
 			c.close();
 		}
 	}

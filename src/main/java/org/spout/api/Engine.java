@@ -34,6 +34,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.group.ChannelGroup;
 
 import org.spout.api.command.Command;
@@ -48,6 +49,7 @@ import org.spout.api.player.Player;
 import org.spout.api.plugin.Platform;
 import org.spout.api.plugin.PluginManager;
 import org.spout.api.plugin.ServiceManager;
+import org.spout.api.protocol.Session;
 import org.spout.api.protocol.SessionRegistry;
 import org.spout.api.protocol.bootstrap.BootstrapProtocol;
 import org.spout.api.scheduler.Scheduler;
@@ -540,5 +542,13 @@ public interface Engine extends Named {
 	 * 
 	 */
 	public FileSystem getFilesystem();
+
+	/**
+	 * Creates a new Session
+	 *
+	 * @param channel the associated channel
+	 * @return the session
+	 */
+	public Session newSession(Channel channel);
 	
 }

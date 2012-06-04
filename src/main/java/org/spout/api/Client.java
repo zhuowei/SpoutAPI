@@ -27,10 +27,12 @@
 package org.spout.api;
 
 import java.io.File;
+import java.net.SocketAddress;
 import org.spout.api.entity.Entity;
 import org.spout.api.geo.World;
 import org.spout.api.gui.screen.ScreenStack;
 import org.spout.api.plugin.PluginStore;
+import org.spout.api.protocol.bootstrap.BootstrapProtocol;
 import org.spout.api.render.Camera;
 import org.spout.api.render.RenderMode;
 
@@ -112,4 +114,14 @@ public interface Client extends Engine {
 	 * @return screen stack
 	 */
 	public ScreenStack getScreenStack();
+
+	/**
+	 * Connects to the given IP address and port
+	 */
+	public void connect(SocketAddress address);
+
+	/**
+	 * Sets the bootstrap protocol used to connect to servers
+	 */
+	public void setBootstrapProtocol(BootstrapProtocol clientBootstrapProtocol);
 }
